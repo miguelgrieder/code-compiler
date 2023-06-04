@@ -4,9 +4,23 @@ Using Python PLY.
 
 Instalation guide:
 
-1 - pip install pip-tools
+venv:
 
-2 - pip-sync requirements/requirements.txt
+1 - python3 -m venv .venv
+
+2 - source .venv/bin/activate
+
+3 - python --version
+
+pip: 
+
+1 - pip install --upgrade pip
+
+2 - pip install pip-tools
+
+Sync requirements:``˜
+
+ 1 - pip-sync requirements/requirements.txt
 
 Compile requirements:
 
