@@ -1,10 +1,11 @@
-code-compiler
+# UFSC: Introdução à Compiladores - INE5622
+## code-compiler
 
-Using Python PLY.
+###Lexic and Parser compiler using Python PLY.
 
-Instalation guide:
+##Instalation guide for development:
 
-venv:
+###venv:
 
 1 - python3 -m venv .venv
 
@@ -12,16 +13,16 @@ venv:
 
 3 - python --version
 
-pip: 
+###pip: 
 
 1 - pip install --upgrade pip
 
 2 - pip install pip-tools
 
-Sync requirements:``˜
+###Sync requirements:
 
- 1 - pip-sync requirements/requirements.txt
+1 - pip-sync requirements/requirements.txt
 
-Compile requirements:
+###Compile requirements:
 
 1 - pip-compile requirements/requirements.in -o requirements/requirements.txt
