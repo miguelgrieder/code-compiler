@@ -4,3 +4,4 @@ mypy
 ruff
 black
 isort
+pydantic

@@ -44,6 +44,8 @@ pluggy==1.0.0
     # via tox
 ply==3.11
     # via -r requirements/requirements.in
+pydantic==1.10.8
+    # via -r requirements/requirements.in
 pyproject-api==1.5.1
     # via tox
 ruff==0.0.270
@@ -51,6 +53,8 @@ ruff==0.0.270
 tox==4.6.0
     # via -r requirements/requirements.in
 typing-extensions==4.6.3
-    # via mypy
+    # via
+    #   mypy
+    #   pydantic
 virtualenv==20.23.0
     # via tox
