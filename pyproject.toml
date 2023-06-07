@@ -1,8 +1,13 @@
 [tool.black]
 line-length = 100
+exclude = '''
+    .tox
+    .venv
+'''
 
 [tool.isort]
 profile = "black"
+sources = ["src"]
 line_length = 100
 
 [tool.mypy]
