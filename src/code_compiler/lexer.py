@@ -48,3 +48,6 @@ class Lexer:
             ]
         )
         self.tokens = Tokens(reserved_words=self.reserved_words.words)
+
+    def get_tokens(self) -> Tokens:
+        return self.tokens
