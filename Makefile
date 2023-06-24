@@ -1,55 +1,78 @@
 .PHONY: create-venv compile-requirements sync-requirements tox lint help
 
+# Colors
+PURPLE = \033[0;35m
+GREEN = \033[0;32m
+NC = \033[0m
+
+# Separator
+SEPARATOR = $============================================================================================$(NC)
+
 # Default target
 default: help
 
-# Installation guide for development
+help:
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Available options:$(NC)"
+	@echo "$(SEPARATOR)"
+	@echo "  $(GREEN)make create-venv$(NC)           Create a virtual environment and install requirements."
+	@echo "  $(GREEN)make compile-requirements$(NC)  Compile requirements."
+	@echo "  $(GREEN)make sync-requirements$(NC)     Sync requirements."
+	@echo "  $(GREEN)make tox$(NC)                   Run tests with tox."
+	@echo "  $(GREEN)make lint$(NC)                  Run all linters (black, isort, ruff)."
+	@echo "  $(GREEN)make help$(NC)                  Show this help message."
+	@echo "$(SEPARATOR)"
 
 create-venv:
-	@echo "Creating virtual environment..."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Creating virtual environment...$(NC)"
+	@echo "$(SEPARATOR)"
 	python3 -m venv .venv
-	@echo "Activating virtual environment..."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Activating virtual environment...$(NC)"
+	@echo "$(SEPARATOR)"
 	source .venv/bin/activate && \
-		echo "Python version:" && python --version && \
-		echo "Upgrading pip..." && pip install --upgrade pip && \
-		echo "Installing pip-tools..." && pip install pip-tools && \
-		echo "Syncing requirements..." && pip-sync requirements/requirements.txt
+		echo "$(PURPLE)Python version:$(NC)" && python --version && \
+		echo "$(PURPLE)Upgrading pip...$(NC)" && pip install --upgrade pip && \
+		echo "$(PURPLE)Installing pip-tools...$(NC)" && pip install pip-tools && \
+		echo "$(PURPLE)Syncing requirements...$(NC)" && pip-sync requirements/requirements.txt
 
 compile-requirements:
-	@echo "Compiling requirements..."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Compiling requirements...$(NC)"
+	@echo "$(SEPARATOR)"
 	pip-compile requirements/requirements.in -o requirements/requirements.txt
 
 sync-requirements:
-	@echo "Syncing requirements..."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Syncing requirements...$(NC)"
+	@echo "$(SEPARATOR)"
 	pip-sync requirements/requirements.txt
 
 # Lint and test
 
 tox:
-	@echo "Running tests with tox..."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Running tests with tox...$(NC)"
+	@echo "$(SEPARATOR)"
 	tox
 
 lint-black:
-	@echo "Linting with black..."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Linting with black...$(NC)"
+	@echo "$(SEPARATOR)"
 	black src
 
 lint-isort:
-	@echo "Linting with isort..."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Linting with isort...$(NC)"
+	@echo "$(SEPARATOR)"
 	isort src
 
 lint-ruff:
-	@echo "Linting with ruff..."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Linting with ruff...$(NC)"
+	@echo "$(SEPARATOR)"
 	ruff src --fix
 
 lint: lint-black lint-isort lint-ruff
-
-# Help
-
-help:
-	@echo "Available options:"
-	@echo "  make create-venv           Create a virtual environment and install requirements."
-	@echo "  make compile-requirements  Compile requirements."
-	@echo "  make sync-requirements     Sync requirements."
-	@echo "  make tox                   Run tests with tox."
-	@echo "  make lint                  Run all linters (black, isort, ruff)."
-	@echo "  make help                  Show this help message."
