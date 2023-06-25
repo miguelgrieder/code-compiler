@@ -1,44 +1,48 @@
 # UFSC: Introdução à Compiladores - INE5622
-## code-compiler
 
+# code-compiler
 ### Lexic and Parser compiler using Python PLY.
 
+---
+
+# Make commands to help you
+## To execute all make commands, you should be in the root of the repository!
+## See all available options with `make help`
 
 ---
 
-To execute all make commands, you should be in the root of the repository!
+## Docker options:
+### Requires Docker and Docker Compose to be installed on your system. You can get in the official Docker documentation: [docs.docker.com/get-docker](https://docs.docker.com/get-docker)
 
+#### Install lexer environment with Docker for using the program:
 
-See all available options with `make help`
+1. Run: `make run-lexer-docker`
+
+### Install parser environment with Docker for using the program:
+
+1. Run: `make run-parser-docker`
 
 ---
 
-### Install lexer environment with docker for using the program:
+## Local options:
+### Use for development, debugging, or running locally.
 
-1 - `make run-lexer-docker`
+### Install development environment:
 
-
-### Install parser environment with docker for using the program:
-
-1 - `make run-parser-docker`
-
-
-### Install environment for development:
-
-1 - `make create-venv`
+1. Run: `make create-venv`
 
 ### Compile requirements:
 
-1 - `make compile-requirements`
+1. Run: `make compile-requirements`
 
 ### Sync requirements:
 
-1 - `make sync-requirements`
+1. Run: `make sync-requirements`
 
 ### Check tests and linters:
 
-1 - `make tox`
+1. Run: `make tox`
 
-### Auto format with linters:
+### Auto-format with linters:
 
-1 - `make lint`
+1. Run: `make lint`
