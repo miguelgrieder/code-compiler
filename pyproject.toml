@@ -43,6 +43,8 @@ ignore = [
   "D1",   # pydocstyle: missing docstrings
   "D203", # pydocstyle: one-blank-line-before-class
   "D213", # pydocstyle: multi-line-summary-second-line
+  "D300", # pydocstyle: single double quotes
+  "N815", # pydocstyle: variable in mixed case
 ]
 line-length = 100
 
