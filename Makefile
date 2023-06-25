@@ -13,7 +13,12 @@ default: help
 
 help:
 	@echo "$(SEPARATOR)"
-	@echo "$(PURPLE)Available options:$(NC)"
+	@echo "$(PURPLE)Docker options:$(NC)"
+	@echo "$(SEPARATOR)"
+	@echo "  $(GREEN)make run-lexer-docker$(NC)      Creates a docker to run the lexer script."
+	@echo "  $(GREEN)make run-parser-docker$(NC)     Creates a docker to run the parser script."
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Local options:$(NC)"
 	@echo "$(SEPARATOR)"
 	@echo "  $(GREEN)make create-venv$(NC)           Create a virtual environment and install requirements."
 	@echo "  $(GREEN)make compile-requirements$(NC)  Compile requirements."
@@ -22,6 +27,18 @@ help:
 	@echo "  $(GREEN)make lint$(NC)                  Run all linters (black, isort, ruff)."
 	@echo "  $(GREEN)make help$(NC)                  Show this help message."
 	@echo "$(SEPARATOR)"
+
+make run-lexer-docker:
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Creating docker to run lexer script...$(NC)"
+	@echo "$(SEPARATOR)"
+	docker compose  -f docker_lexer/docker-compose-lexer.yml up
+
+make run-parser-docker:
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Creating docker to run parser script...$(NC)"
+	@echo "$(SEPARATOR)"
+	docker compose  -f docker-compose-parser.yml up
 
 create-venv:
 	@echo "$(SEPARATOR)"

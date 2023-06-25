@@ -13,8 +13,14 @@ See all available options with `make help`
 
 ---
 
-### Install environment with docker for using the program:
+### Install lexer environment with docker for using the program:
 
+1 - `make run-lexer-docker`
+
+
+### Install parser environment with docker for using the program:
+
+1 - `make run-parser-docker`
 
 
 ### Install environment for development:
