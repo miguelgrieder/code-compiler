@@ -9,4 +9,4 @@ RUN pip install pip-tools
 RUN pip-sync requirements/requirements.txt
 
 
-CMD ["python", "bin/run.py"]
+CMD ["python", "bin/run_parser.py"]
