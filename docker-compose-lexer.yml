@@ -1,8 +1,12 @@
 version: '3'
 services:
-  app:
+  lexer_app:
     build:
       context: .
       dockerfile: Dockerfile-lexer
+    environment:
+      - FILE=${FILE}
+    env_file:
+      - .env
     volumes:
       - .:/app

@@ -34,7 +34,7 @@ run-lexer-docker:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Creating docker to run lexer script...$(NC)"
 	@echo "$(SEPARATOR)"
-	docker compose  -f docker-compose-lexer.yml up
+	docker-compose -f docker-compose-lexer.yml up --build
 
 run-parser-docker:
 	@echo "$(SEPARATOR)"
