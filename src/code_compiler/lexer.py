@@ -28,7 +28,9 @@ class Tokens(BaseModel):
 
 
 class Lexer:
-    def __init__(self) -> None:
+    def __init__(self, source_code: str) -> None:
+        self.source_code = source_code
+
         self._symbol_table: Dict[str, SymbolTableEntry] = {}
         self.reserved_words = ReservedWords(
             words=[

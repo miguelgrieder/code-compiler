@@ -11,8 +11,10 @@ class PrecedenceModel(BaseModel):
 
 
 class Parser:
-    def __init__(self) -> None:
-        specific_lexer = Lexer()
+    def __init__(self, source_code: str) -> None:
+        self.source_code = source_code
+        specific_lexer = Lexer(self.source_code)
+
         self.application_lexer = lex.lex(specific_lexer)
         self.tokens = specific_lexer.get_tokens()
         self.precedence = PrecedenceModel(
