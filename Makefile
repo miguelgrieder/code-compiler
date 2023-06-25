@@ -20,6 +20,8 @@ help:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Local options:$(NC)"
 	@echo "$(SEPARATOR)"
+	@echo "  $(GREEN)run-lexer$(NC)                  Run lexer program."
+	@echo "  $(GREEN)run-parser$(NC)                 Run parser program."
 	@echo "  $(GREEN)make create-venv$(NC)           Create a virtual environment and install requirements."
 	@echo "  $(GREEN)make compile-requirements$(NC)  Compile requirements."
 	@echo "  $(GREEN)make sync-requirements$(NC)     Sync requirements."
