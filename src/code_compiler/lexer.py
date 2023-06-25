@@ -57,9 +57,11 @@ class Lexer:
             "PRINT",
         ]
 
-        self.tokens = [
-            attr_name[2:] for attr_name in self.tokens_model.dict() if attr_name.startswith("t_")
-        ] + self.reserved_words + ["IDENT"]
+        self.tokens = (
+            [attr_name[2:] for attr_name in self.tokens_model.dict() if attr_name.startswith("t_")]
+            + self.reserved_words
+            + ["IDENT"]
+        )
 
         self.load_tokens()
         self.line_number = 1
@@ -99,7 +101,7 @@ class Lexer:
         )
 
     def t_IDENT(self, t: lex.LexToken) -> Any:
-        r"[A-Za-z]+[A-Za-z0-9]*"
+        r"[A-Za-z]+[A-Za-z0-9]*."
         if t.value in self.reserved_words:
             t.type = t.value
         else:
