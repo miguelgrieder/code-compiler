@@ -28,13 +28,13 @@ help:
 	@echo "  $(GREEN)make help$(NC)                  Show this help message."
 	@echo "$(SEPARATOR)"
 
-make run-lexer-docker:
+run-lexer-docker:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Creating docker to run lexer script...$(NC)"
 	@echo "$(SEPARATOR)"
 	docker compose  -f docker_lexer/docker-compose-lexer.yml up
 
-make run-parser-docker:
+run-parser-docker:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Creating docker to run parser script...$(NC)"
 	@echo "$(SEPARATOR)"
