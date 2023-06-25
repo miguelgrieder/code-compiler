@@ -8,7 +8,6 @@ from pydantic import BaseModel
 class Tokens(BaseModel):
     t_BREAKLINE: str = r"\n"
     t_WHITESPACE: str = r"\s+"
-    t_IDENT: str = r"[A-Za-z]+[A-Za-z0-9]*"
     t_LEFT_PAREN: str = r"\("
     t_RIGHT_PAREN: str = r"\)"
     t_LEFT_BRACE: str = r"\{"
@@ -60,7 +59,7 @@ class Lexer:
 
         self.tokens = [
             attr_name[2:] for attr_name in self.tokens_model.dict() if attr_name.startswith("t_")
-        ] + self.reserved_words
+        ] + self.reserved_words + ["IDENT"]
 
         self.load_tokens()
         self.line_number = 1
@@ -100,7 +99,7 @@ class Lexer:
         )
 
     def t_IDENT(self, t: lex.LexToken) -> Any:
-        r"[A-Za-z]+[A-Za-z0-9]*."
+        r"[A-Za-z]+[A-Za-z0-9]*"
         if t.value in self.reserved_words:
             t.type = t.value
         else:
