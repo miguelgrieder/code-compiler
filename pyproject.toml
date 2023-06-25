@@ -45,6 +45,7 @@ ignore = [
   "D213", # pydocstyle: multi-line-summary-second-line
   "D300", # pydocstyle: single double quotes
   "N815", # pydocstyle: variable in mixed case
+  "N802", # pydocstyle: function name in upper case
 ]
 line-length = 100
 

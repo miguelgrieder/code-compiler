@@ -1,5 +1,5 @@
 from textwrap import dedent
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 from ply import lex  # type: ignore
 from pydantic import BaseModel
@@ -57,23 +57,25 @@ class Lexer:
         self.source_code = source_code
 
         self._symbol_table: Dict[str, SymbolTableEntry] = {}
-        self.reserved_words = [
-        ]
+        self.reserved_words: List[str] = []
 
         self.tokens_model = Tokens(reserved_words=self.reserved_words)
         self.tokens = [
             attr_name[2:] for attr_name in self.tokens_model.dict() if attr_name.startswith("t_")
         ] + self.reserved_words
 
+        self.load_tokens()
+        self.line_number = 1
+
+    def load_tokens(self) -> None:
         for attr_name, attr_value in self.tokens_model.__dict__.items():
             if attr_name.startswith("t_"):
                 setattr(self, attr_name, attr_value)
-        self.line_number = 1
 
     def get_tokens_model(self) -> Tokens:
         return self.tokens_model
 
-    def execute(self, **kwargs) -> None:
+    def execute(self, **kwargs: Dict[str, Any]) -> None:
         ply_lexer = lex.lex(module=self, **kwargs)
         ply_lexer.input(self.source_code)
 
@@ -99,9 +101,12 @@ class Lexer:
             )
         )
 
-    def t_IDENT(self, t) -> Any:
-        r"[A-Za-z]+[A-Za-z0-9]*"
-        t.type = self.reserved_words.get(t.value, "IDENT")  # Check if the identifier is a reserved word
+    def t_IDENT(self, t: lex.LexToken) -> Any:
+        r"[A-Za-z]+[A-Za-z0-9]*."
+        if t.value in self.reserved_words:
+            t.type = t.value
+        else:
+            t.type = "IDENT"
         # Update symbol table
         if t.value not in self._symbol_table:
             self._symbol_table[t.value] = SymbolTableEntry(Lines=[self.line_number])
@@ -109,6 +114,12 @@ class Lexer:
             self._symbol_table[t.value].Lines.append(self.line_number)
         return t
 
-    def t_BREAKLINE(self, t) -> Any:
-        r"\n"
+    def t_BREAKLINE(self, t: lex.LexToken) -> Any:
+        r"\n."
         self.line_number += 1
+
+    def t_error(self, t: lex.LexToken) -> None:
+        print(  # noqa: T201
+            f"Lexer Error: Unexpected character '{t.value[0]}' at line {self.line_number}"
+        )
+        t.lexer.skip(1)
