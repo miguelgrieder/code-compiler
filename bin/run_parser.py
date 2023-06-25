@@ -1,12 +1,6 @@
-import os
 import sys
 
-current_path = os.path.abspath(__file__)
-parent_dir = os.path.dirname(current_path)
-src_dir = os.path.join(parent_dir, "src")
-sys.path.append(src_dir)
-
-from code_compiler import parser, utils  # noqa: E402
+from code_compiler import parser, utils
 
 if len(sys.argv) < 2:
     print("Error: No file path provided!", flush=True)  # noqa: T201
