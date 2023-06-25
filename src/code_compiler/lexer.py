@@ -6,7 +6,6 @@ from pydantic import BaseModel
 
 
 class Tokens(BaseModel):
-    t_BREAKLINE: str = r"\n"
     t_WHITESPACE: str = r"\s+"
     t_LEFT_PAREN: str = r"\("
     t_RIGHT_PAREN: str = r"\)"
@@ -133,9 +132,10 @@ class Lexer:
         t.value = t.value[1:-1]
         return t
 
-    def t_BREAKLINE(self, t: lex.LexToken) -> Any:
-        r"\n."
+    def t_BREAK(self, t: lex.LexToken) -> Any:
+        r"\n+."
         self.line_number += 1
+        return t
 
     def t_error(self, t: lex.LexToken) -> None:
         print(  # noqa: T201
