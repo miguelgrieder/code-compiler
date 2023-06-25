@@ -109,11 +109,13 @@ class Lexer:
             t.type = t.value
         else:
             t.type = "IDENT"
-        # Update symbol table
+
         if t.value not in self._symbol_table:
-            self._symbol_table[t.value] = {"Lines": [self.line_number]}
+            entry = SymbolTableEntry(Lines=[self.line_number])
+            self._symbol_table[t.value] = entry
         else:
-            self._symbol_table[t.value]["Lines"].append(self.line_number)
+            self._symbol_table[t.value].Lines.append(self.line_number)
+
         return t
 
     def t_FLOAT_CONSTANT(self, t: lex.LexToken) -> Any:
