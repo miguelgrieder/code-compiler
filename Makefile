@@ -46,13 +46,13 @@ run-lexer:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Running lexer script...$(NC)"
 	@echo "$(SEPARATOR)"
-	python bin/run_lexer.py
+	python bin/run_lexer.py FILE=$(FILE)
 
 run-parser:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Running parser script...$(NC)"
 	@echo "$(SEPARATOR)"
-	python bin/run_parser.py
+	python bin/run_parser.py FILE=$(FILE)
 
 create-venv:
 	@echo "$(SEPARATOR)"

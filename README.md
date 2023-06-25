@@ -25,7 +25,7 @@
 ---
 
 ## Local options:
-### Use for development, debugging or running locally.
+### Use for development, debugging, or running locally.
 
 ### Install development environment:
 
@@ -33,11 +33,15 @@
 
 ### Run lexer
 
-1. Run: `make run-lexer`
+1. Run: `make run-lexer FILE=<path_to_file>`
+
+   Replace `<path_to_file>` with the path of the file to be analyzed.
 
 ### Run parser 
 
-1. Run: `make run-parser`
+1. Run: `make run-parser FILE=<path_to_file>`
+
+   Replace `<path_to_file>` with the path of the file to be analyzed.
 
 ### Compile requirements:
 
