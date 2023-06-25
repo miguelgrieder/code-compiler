@@ -34,11 +34,15 @@ class Tokens(BaseModel):
     t_STRING_CONSTANT: str = r'"[^"]*"'
 
 
+class SymbolTableEntry(BaseModel):
+    Lines: List[int]
+
+
 class Lexer:
     def __init__(self, source_code: str) -> None:
         self.source_code = source_code
 
-        self._symbol_table: Dict[str, Dict[str, List[int]]] = {}
+        self._symbol_table: Dict[str, SymbolTableEntry] = {}
         self.tokens_model = Tokens()
 
         self.reserved_words: List[str] = [
