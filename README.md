@@ -25,11 +25,19 @@
 ---
 
 ## Local options:
-### Use for development, debugging, or running locally.
+### Use for development, debugging or running locally.
 
 ### Install development environment:
 
 1. Run: `make create-venv`
+
+### Run lexer
+
+1. Run: `make run-lexer`
+
+### Run parser 
+
+1. Run: `make run-parser`
 
 ### Compile requirements:
 

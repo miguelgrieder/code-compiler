@@ -32,13 +32,25 @@ run-lexer-docker:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Creating docker to run lexer script...$(NC)"
 	@echo "$(SEPARATOR)"
-	docker compose  -f docker_lexer/docker-compose-lexer.yml up
+	docker compose  -f docker-compose-lexer.yml up
 
 run-parser-docker:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Creating docker to run parser script...$(NC)"
 	@echo "$(SEPARATOR)"
 	docker compose  -f docker-compose-parser.yml up
+
+run-lexer:
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Running lexer script...$(NC)"
+	@echo "$(SEPARATOR)"
+	python bin/run_lexer.py
+
+run-parser:
+	@echo "$(SEPARATOR)"
+	@echo "$(PURPLE)Running parser script...$(NC)"
+	@echo "$(SEPARATOR)"
+	python bin/run_parser.py
 
 create-venv:
 	@echo "$(SEPARATOR)"
