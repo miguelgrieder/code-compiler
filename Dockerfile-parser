@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY . .
 
+COPY requirements/requirements.txt .
 
 RUN pip install pip-tools
 RUN pip-sync requirements/requirements.txt

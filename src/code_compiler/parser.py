@@ -15,7 +15,7 @@ class Parser:
         self.source_code = source_code
         specific_lexer = Lexer(self.source_code)
 
-        self.application_lexer = lex.lex(specific_lexer)
+        self.application_lexer = lex.Lex(specific_lexer)
         self.tokens = specific_lexer.get_tokens()
         self.precedence = PrecedenceModel(
             left=[

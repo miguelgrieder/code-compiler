@@ -16,11 +16,15 @@
 
 #### Install lexer environment with Docker for using the program:
 
-1. Run: `make run-lexer-docker`
+1. Run: `make run-lexer-docker FILE=<path_to_file>`
+
+   Replace `<path_to_file>` with the path of the file to be analyzed.
 
 ### Install parser environment with Docker for using the program:
 
-1. Run: `make run-parser-docker`
+1. Run: `make run-parser-docker FILE=<path_to_file>`
+
+   Replace `<path_to_file>` with the path of the file to be analyzed.
 
 ---
 

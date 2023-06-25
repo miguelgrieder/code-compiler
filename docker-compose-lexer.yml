@@ -6,7 +6,5 @@ services:
       dockerfile: Dockerfile-lexer
     environment:
       - FILE=${FILE}
-    env_file:
-      - .env
     volumes:
       - .:/app
