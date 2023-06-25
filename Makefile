@@ -78,18 +78,18 @@ lint-black:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Linting with black...$(NC)"
 	@echo "$(SEPARATOR)"
-	black src
+	black .
 
 lint-isort:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Linting with isort...$(NC)"
 	@echo "$(SEPARATOR)"
-	isort src
+	isort .
 
 lint-ruff:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Linting with ruff...$(NC)"
 	@echo "$(SEPARATOR)"
-	ruff src --fix
+	ruff . --fix
 
 lint: lint-black lint-isort lint-ruff
