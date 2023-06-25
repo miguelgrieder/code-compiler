@@ -4,6 +4,8 @@
 #
 #    pip-compile --output-file=requirements/requirements.txt requirements/requirements.in
 #
+-e file:
+    # via -r requirements/requirements.in
 black==23.3.0
     # via -r requirements/requirements.in
 cachetools==5.3.1

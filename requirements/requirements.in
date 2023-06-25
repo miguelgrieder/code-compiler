@@ -1,3 +1,4 @@
+-e file: .
 ply
 tox
 mypy
