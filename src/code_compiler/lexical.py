@@ -1,4 +1,3 @@
-from textwrap import dedent
 from typing import Any, Dict, List
 
 from ply import lex  # type: ignore
@@ -82,25 +81,27 @@ class Lexical:
         ply_lexer.input(self.source_code)
 
         token_list: List[str] = []
-        while True:
-            found_token = ply_lexer.token()
-            if not found_token:
-                break
+        found_token = ply_lexer.token()
+        while found_token:
             token_list.append(found_token.type)
+            found_token = ply_lexer.token()
+
+        symbol_table_output = ""
+        purple = "\033[0;35m"
+        green = "\033[0;32m"
+        reset = "\033[0m"
+        for name, value in self._symbol_table.items():
+            symbol_table_output += f"{green}{name}{reset} -> {value}\n"
 
         print(  # noqa: T201
-            dedent(
-                f"""
-            -------------------
-            -> Token list:
-            -------------------
-            {token_list}
-            -------------------
-            Symbol table:
-            -------------------
-            {self._symbol_table}
-            """
-            )
+            f"-------------------\n"
+            f"{purple}Token list:{reset}\n"
+            f"-------------------\n"
+            f"{green}{token_list}{reset}\n"
+            f"-------------------\n"
+            f"{purple}Symbol table:{reset}\n"
+            f"-------------------\n"
+            f"{symbol_table_output}{reset}"
         )
 
     def t_IDENT(self, t: lex.LexToken) -> Any:
