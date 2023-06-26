@@ -14,9 +14,9 @@
 ## Docker options:
 ### Requires Docker and Docker Compose to be installed on your system. You can get in the official Docker documentation: [docs.docker.com/get-docker](https://docs.docker.com/get-docker)
 
-#### Install lexer environment with Docker for using the program:
+#### Install lexical environment with Docker for using the program:
 
-1. Run: `make run-lexer-docker FILE=<path_to_file>`
+1. Run: `make run-lexical-docker FILE=<path_to_file>`
 
    Replace `<path_to_file>` with the path of the file to be analyzed.
 
@@ -35,9 +35,9 @@
 
 1. Run: `make create-venv`
 
-### Run lexer
+### Run lexical
 
-1. Run: `make run-lexer FILE=<path_to_file>`
+1. Run: `make run-lexical FILE=<path_to_file>`
 
    Replace `<path_to_file>` with the path of the file to be analyzed.
 

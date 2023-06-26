@@ -37,7 +37,7 @@ class SymbolTableEntry(BaseModel):
     Lines: List[int]
 
 
-class Lexer:
+class Lexical:
     def __init__(self, source_code: str) -> None:
         self.source_code = source_code
 
@@ -141,6 +141,6 @@ class Lexer:
 
     def t_error(self, t: lex.LexToken) -> None:
         print(  # noqa: T201
-            f"Lexer Error: Unexpected character '{t.value[0]}' at line {self.line_number}"
+            f"Lexical Error: Unexpected character '{t.value[0]}' at line {self.line_number}"
         )
-        t.lexer.skip(1)
+        t.lexical.skip(1)

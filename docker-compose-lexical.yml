@@ -3,7 +3,7 @@ services:
   lexer_app:
     build:
       context: .
-      dockerfile: Dockerfile-lexer
+      dockerfile: Dockerfile-lexical
     environment:
       - FILE=${FILE}
     volumes:

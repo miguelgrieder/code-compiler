@@ -3,7 +3,7 @@ from typing import Any, List, Tuple
 from ply import lex, yacc
 from pydantic import BaseModel
 
-from code_compiler.lexer import Lexer
+from code_compiler.lexical import Lexical
 
 
 class PrecedenceModel(BaseModel):
@@ -13,8 +13,8 @@ class PrecedenceModel(BaseModel):
 class Syntax:
     def __init__(self, source_code: str) -> None:
         self.source_code = source_code
-        specific_lexer = Lexer(self.source_code)
-        self.lexer = lex.lex(module=specific_lexer)
+        specific_lexer = Lexical(self.source_code)
+        self.lexical = lex.lex(module=specific_lexer)
         self.tokens = specific_lexer.tokens
         self.precedence = (
             ("left", "LESS", "LESS_EQUAL", "GREATER", "GREATER_EQUAL"),
