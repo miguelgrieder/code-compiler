@@ -1,7 +1,7 @@
 # UFSC: Introdução à Compiladores - INE5622
 
 # code-compiler
-### Lexic and Parser compiler using Python PLY.
+### Lexic and Syntax compiler using Python PLY.
 
 ---
 
@@ -20,9 +20,9 @@
 
    Replace `<path_to_file>` with the path of the file to be analyzed.
 
-### Install parser environment with Docker for using the program:
+### Install syntax environment with Docker for using the program:
 
-1. Run: `make run-parser-docker FILE=<path_to_file>`
+1. Run: `make run-syntax-docker FILE=<path_to_file>`
 
    Replace `<path_to_file>` with the path of the file to be analyzed.
 
@@ -41,9 +41,9 @@
 
    Replace `<path_to_file>` with the path of the file to be analyzed.
 
-### Run parser 
+### Run syntax 
 
-1. Run: `make run-parser FILE=<path_to_file>`
+1. Run: `make run-syntax FILE=<path_to_file>`
 
    Replace `<path_to_file>` with the path of the file to be analyzed.
 

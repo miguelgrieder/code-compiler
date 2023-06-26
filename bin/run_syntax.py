@@ -1,7 +1,7 @@
 import os
 import sys
 
-from code_compiler import parser, utils
+from code_compiler import syntax, utils
 
 if len(sys.argv) > 1 and sys.argv[1].startswith("FILE="):
     provided_argv = sys.argv[1][5:]
@@ -14,4 +14,4 @@ else:
     sys.exit(1)
 
 source_code = utils.read_file_content(file_path=provided_argv)
-parser.Parser(source_code).execute()
+syntax.Syntax(source_code).execute()

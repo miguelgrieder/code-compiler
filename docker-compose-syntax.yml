@@ -3,7 +3,7 @@ services:
   parser_app:
     build:
       context: .
-      dockerfile: Dockerfile-parser
+      dockerfile: Dockerfile-syntax
     environment:
       - FILE=${FILE}
     volumes:

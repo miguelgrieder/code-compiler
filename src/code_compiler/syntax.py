@@ -10,7 +10,7 @@ class PrecedenceModel(BaseModel):
     left: List[Tuple[str, ...]]
 
 
-class Parser:
+class Syntax:
     def __init__(self, source_code: str) -> None:
         self.source_code = source_code
         specific_lexer = Lexer(self.source_code)
@@ -27,8 +27,8 @@ class Parser:
         return yacc.yacc(module=self, **kwargs)
 
     def execute(self) -> None:
-        parser = self.build()
-        parser.parse(self.source_code)
+        syntax = self.build()
+        syntax.parse(self.source_code)
 
     def p_error(self, p: yacc.YaccProduction) -> None:
         raise SyntaxError(f"Syntax error in input! {p}")  # noqa: TRY003

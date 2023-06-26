@@ -16,12 +16,12 @@ help:
 	@echo "$(PURPLE)Docker options:$(NC)"
 	@echo "$(SEPARATOR)"
 	@echo "  $(GREEN)make run-lexer-docker$(NC)      Creates a docker to run the lexer script."
-	@echo "  $(GREEN)make run-parser-docker$(NC)     Creates a docker to run the parser script."
+	@echo "  $(GREEN)make run-syntax-docker$(NC)     Creates a docker to run the syntax script."
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Local options:$(NC)"
 	@echo "$(SEPARATOR)"
 	@echo "  $(GREEN)run-lexer$(NC)                  Run lexer program."
-	@echo "  $(GREEN)run-parser$(NC)                 Run parser program."
+	@echo "  $(GREEN)run-syntax$(NC)                 Run syntax program."
 	@echo "  $(GREEN)make create-venv$(NC)           Create a virtual environment and install requirements."
 	@echo "  $(GREEN)make compile-requirements$(NC)  Compile requirements."
 	@echo "  $(GREEN)make sync-requirements$(NC)     Sync requirements."
@@ -37,12 +37,12 @@ run-lexer-docker:
 	docker-compose -f docker-compose-lexer.yml build
 	docker-compose -f docker-compose-lexer.yml run --rm -e FILE=$(FILE) lexer_app
 
-run-parser-docker:
+run-syntax-docker:
 	@echo "$(SEPARATOR)"
-	@echo "$(PURPLE)Creating docker to run parser script...$(NC)"
+	@echo "$(PURPLE)Creating docker to run syntax script...$(NC)"
 	@echo "$(SEPARATOR)"
-	docker-compose -f docker-compose-parser.yml build
-	docker-compose -f docker-compose-parser.yml run --rm -e FILE=$(FILE) parser_app
+	docker-compose -f docker-compose-syntax.yml build
+	docker-compose -f docker-compose-syntax.yml run --rm -e FILE=$(FILE) parser_app
 
 run-lexer:
 	@echo "$(SEPARATOR)"
@@ -50,9 +50,9 @@ run-lexer:
 	@echo "$(SEPARATOR)"
 	python bin/run_lexer.py FILE=$(FILE)
 
-run-parser:
+run-syntax:
 	@echo "$(SEPARATOR)"
-	@echo "$(PURPLE)Running parser script...$(NC)"
+	@echo "$(PURPLE)Running syntax script...$(NC)"
 	@echo "$(SEPARATOR)"
 	python bin/run_parser.py FILE=$(FILE)
 
