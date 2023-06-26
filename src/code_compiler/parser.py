@@ -1,6 +1,6 @@
 from typing import Any, List, Tuple
 
-from ply import lex, yacc  # type: ignore
+from ply import lex, yacc
 from pydantic import BaseModel
 
 from code_compiler.lexer import Lexer
@@ -15,9 +15,7 @@ class Parser:
         self.source_code = source_code
         specific_lexer = Lexer(self.source_code)
         self.lexer = lex.lex(module=specific_lexer)
-
         self.tokens = specific_lexer.tokens
-
         self.precedence = (
             ("left", "LESS", "LESS_EQUAL", "GREATER", "GREATER_EQUAL"),
             ("left", "PLUS", "MINUS"),
@@ -33,195 +31,236 @@ class Parser:
         parser.parse(self.source_code)
 
     def p_error(self, p: yacc.YaccProduction) -> None:
-        raise SyntaxError("Syntax error in input!")  # noqa: TRY003
+        raise SyntaxError(f"Syntax error in input! {p}")  # noqa: TRY003
 
     def p_PROGRAM(self, p: yacc.YaccProduction) -> None:
         """PROGRAM : STATEMENT
         | FUNCLIST
-        | EMPTY.
+        | EMPTY
         """
         pass
 
     def p_FUNCLIST(self, p: yacc.YaccProduction) -> None:
-        """FUNCLIST : FUNCDEF FUNCLIST_2."""
+        """FUNCLIST : FUNCDEF FUNCLIST_2"""
         pass
 
     def p_FUNCLIST_2(self, p: yacc.YaccProduction) -> None:
         """FUNCLIST_2 : FUNCLIST
-        | EMPTY.
+        | EMPTY
         """
         pass
 
     def p_FUNCDEF(self, p: yacc.YaccProduction) -> None:
-        """FUNCDEF : DEF IDENTIFIER LEFT_PAREN PARAMLIST RIGHT_PAREN LEFT_BRACE STATELIST RIGHT_BRACE."""  # noqa: E501
+        """FUNCDEF : DEF IDENT LEFT_PAREN PARAMLIST RIGHT_PAREN LEFT_BRACE STATELIST RIGHT_BRACE"""  # noqa
         pass
 
     def p_PARAMLIST(self, p: yacc.YaccProduction) -> None:
         """PARAMLIST : PARAMLIST_2
-        | EMPTY.
+        | EMPTY
         """
         pass
 
     def p_PARAMLIST_2(self, p: yacc.YaccProduction) -> None:
-        """PARAMLIST_2 : INT_OR_FLOAT_OR_STRING IDENTIFIER PARAMLIST_3."""
+        """PARAMLIST_2 : INT_OR_FLOAT_OR_STRING IDENT PARAMLIST_3"""
         pass
 
     def p_INT_OR_FLOAT_OR_STRING(self, p: yacc.YaccProduction) -> None:
         """INT_OR_FLOAT_OR_STRING : INT
         | FLOAT
-        | STRING.
+        | STRING
         """
         pass
 
-    def p_PARAMLIST_3(self, p: yacc.YaccProduction) -> None:
+    def p_PARAMLIST_3(self, p):
         """PARAMLIST_3 : COMMA PARAMLIST
-        | EMPTY.
+        | EMPTY
         """
         pass
 
     def p_STATEMENT(self, p: yacc.YaccProduction) -> None:
-        """Statement : expression
-        | assignment
-        | if_statement
-        | while_statement
-        | print_statement
-        | break_statement
-        | empty.
+        """STATEMENT : VARDECL SEMICOLON
+        | ATRIBSTAT SEMICOLON
+        | PRINTSTAT SEMICOLON
+        | READSTAT SEMICOLON
+        | RETURNSTAT SEMICOLON
+        | IFSTAT
+        | FORSTAT
+        | LEFT_BRACE STATELIST RIGHT_BRACE
+        | BREAK SEMICOLON
+        | SEMICOLON
         """
         pass
 
     def p_VARDECL(self, p: yacc.YaccProduction) -> None:
-        """VARDECL : INT_OR_FLOAT_OR_STRING IDENTIFIER VARDECL_2."""
+        """VARDECL : INT_OR_FLOAT_OR_STRING IDENT VARDECL_2"""
         pass
 
     def p_VARDECL_2(self, p: yacc.YaccProduction) -> None:
-        """VARDECL_2 : LEFT_BRACKET INT_LITERAL RIGHT_BRACKET VARDECL_2
-        | EMPTY.
+        """VARDECL_2 : LEFT_BRACKET INT_CONSTANT RIGHT_BRACKET VARDECL_2
+        | EMPTY
         """
         pass
 
     def p_ATRIBSTAT(self, p: yacc.YaccProduction) -> None:
-        """ATRIBSTAT : LVALUE ASSIGN ATRIBSTAT_2."""
+        """ATRIBSTAT : LVALUE ASSIGN ATRIBSTAT_2"""
         pass
 
     def p_ATRIBSTAT_2(self, p: yacc.YaccProduction) -> None:
-        """ATRIBSTAT_2 : INT_LITERAL
-        | FLOAT_LITERAL
-        | STRING_LITERAL
-        | LVALUE.
+        """ATRIBSTAT_2 : FUNCCALL_EXPRESSION
+        | ALLOCEXPRESSION
+        """
+        pass
+
+    def p_FUNCCALL_EXPRESSION(self, p: yacc.YaccProduction) -> None:
+        """FUNCCALL_EXPRESSION : PLUS FACTOR TERM_2 NUMEXPRESSION_2 EXPRESSION_2
+        | MINUS FACTOR TERM_2 NUMEXPRESSION_2 EXPRESSION_2
+        | INT_CONSTANT TERM_2 NUMEXPRESSION_2 EXPRESSION_2
+        | FLOAT_CONSTANT TERM_2 NUMEXPRESSION_2 EXPRESSION_2
+        | STRING_CONSTANT TERM_2 NUMEXPRESSION_2 EXPRESSION_2
+        | NULL TERM_2 NUMEXPRESSION_2 EXPRESSION_2
+        | LEFT_PAREN NUMEXPRESSION RIGHT_PAREN TERM_2 NUMEXPRESSION_2 EXPRESSION_2
+        | FUNCCALL"""  # noqa
+        pass
+
+    def p_FUNCCALL(self, p):
+        """FUNCCALL : IDENT FUNCCALL_2"""
+        pass
+
+    def p_FUNCCALL_2(self, p):
+        """FUNCCALL_2 : ALLOCEXPRESSION_2 TERM_2 NUMEXPRESSION_2 EXPRESSION_2
+        | LEFT_PAREN PARAMLISTCALL RIGHT_PAREN
+        """
+
+    def p_PARAMLISTCALL(self, p: yacc.YaccProduction) -> None:
+        """PARAMLISTCALL : IDENT PARAMLISTCALL_2
+        | EMPTY
+        """
+        pass
+
+    def p_PARAMLISTCALL_2(self, p: yacc.YaccProduction) -> None:
+        """PARAMLISTCALL_2 : COMMA PARAMLISTCALL
+        | EMPTY
         """
         pass
 
     def p_PRINTSTAT(self, p: yacc.YaccProduction) -> None:
-        """PRINTSTAT : PRINT LEFT_PAREN PRINTSTAT_2 RIGHT_PAREN."""
-        pass
-
-    def p_PRINTSTAT_2(self, p: yacc.YaccProduction) -> None:
-        """PRINTSTAT_2 : STRING_LITERAL
-        | INT_LITERAL
-        | FLOAT_LITERAL
-        | LVALUE.
-        """
+        """PRINTSTAT : PRINT EXPRESSION"""
         pass
 
     def p_READSTAT(self, p: yacc.YaccProduction) -> None:
-        """READSTAT : READ LEFT_PAREN LVALUE RIGHT_PAREN."""
+        """READSTAT : READ LVALUE"""
         pass
 
     def p_RETURNSTAT(self, p: yacc.YaccProduction) -> None:
-        """RETURNSTAT : RETURN RETURNSTAT_2."""
-        pass
-
-    def p_RETURNSTAT_2(self, p: yacc.YaccProduction) -> None:
-        """RETURNSTAT_2 : LVALUE
-        | INT_LITERAL
-        | FLOAT_LITERAL
-        | STRING_LITERAL.
-        """
+        """RETURNSTAT : RETURN"""
         pass
 
     def p_IFSTAT(self, p: yacc.YaccProduction) -> None:
-        """IFSTAT : IF LEFT_PAREN LVALUE RIGHT_PAREN LEFT_BRACE STATELIST RIGHT_BRACE ELSE IFSTAT_2
-        | IF LEFT_PAREN LVALUE RIGHT_PAREN LEFT_BRACE STATELIST RIGHT_BRACE.
-        """
+        """IFSTAT : IF LEFT_PAREN EXPRESSION RIGHT_PAREN STATEMENT IFSTAT_2"""
         pass
 
     def p_IFSTAT_2(self, p: yacc.YaccProduction) -> None:
-        """IFSTAT_2 : IF LEFT_PAREN LVALUE RIGHT_PAREN LEFT_BRACE STATELIST RIGHT_BRACE
-        | EMPTY.
+        """IFSTAT_2 : ELSE STATEMENT
+        | EMPTY
         """
         pass
 
     def p_FORSTAT(self, p: yacc.YaccProduction) -> None:
-        """FORSTAT : FOR LEFT_PAREN VARDECL SEMICOLON LVALUE FORSTAT_2 RIGHT_PAREN LEFT_BRACE STATELIST RIGHT_BRACE."""  # noqa: E501
-        pass
-
-    def p_FORSTAT_2(self, p: yacc.YaccProduction) -> None:
-        """FORSTAT_2 : LVALUE
-        | INT_LITERAL
-        | FLOAT_LITERAL.
-        """
+        """FORSTAT : FOR LEFT_PAREN ATRIBSTAT SEMICOLON EXPRESSION SEMICOLON ATRIBSTAT RIGHT_PAREN STATEMENT"""  # noqa
         pass
 
     def p_STATELIST(self, p: yacc.YaccProduction) -> None:
-        """STATELIST : STATEMENT STATELIST
-        | EMPTY.
+        """STATELIST : STATEMENT STATELIST_2"""
+        pass
+
+    def p_STATELIST_2(self, p: yacc.YaccProduction) -> None:
+        """STATELIST_2 : STATELIST
+        | EMPTY
         """
         pass
 
-    def p_EMPTY(self, p: yacc.YaccProduction) -> None:
-        """EMPTY :"""
+    def p_ALLOCEXPRESSION(self, p: yacc.YaccProduction) -> None:
+        """ALLOCEXPRESSION :  NEW INT_OR_FLOAT_OR_STRING LEFT_BRACKET NUMEXPRESSION RIGHT_BRACKET ALLOCEXPRESSION_2"""  # noqa
+        pass
+
+    def p_ALLOCEXPRESSION_2(self, p: yacc.YaccProduction) -> None:
+        """ALLOCEXPRESSION_2 : LEFT_BRACKET NUMEXPRESSION RIGHT_BRACKET ALLOCEXPRESSION_2
+        | EMPTY"""  # noqa
         pass
 
     def p_EXPRESSION(self, p: yacc.YaccProduction) -> None:
-        """EXPRESSION : expression PLUS term
-        | expression MINUS term
-        | term.
+        """EXPRESSION : NUMEXPRESSION EXPRESSION_2"""
+        pass
+
+    def p_EXPRESSION_2(self, p: yacc.YaccProduction) -> None:
+        """EXPRESSION_2 : COMPAREOPERANDS NUMEXPRESSION
+        | EMPTY
         """
         pass
 
-    def p_ASSIGNMENT(self, p: yacc.YaccProduction) -> None:
-        """ASSIGNMENT : IDENTIFIER EQUALS expression."""
+    def p_COMPAREOPERANDS(self, p: yacc.YaccProduction) -> None:
+        """COMPAREOPERANDS : LESS
+        | GREATER
+        | LESS_EQUAL
+        | GREATER_EQUAL
+        | EQUAL
+        | NOT_EQUAL
+        """
         pass
 
-    def p_WHILE_STATEMENT(self, p: yacc.YaccProduction) -> None:
-        """WHILE_STATEMENT : WHILE expression DO statement END."""
+    def p_NUMEXPRESSION(self, p: yacc.YaccProduction) -> None:
+        """NUMEXPRESSION : TERM NUMEXPRESSION_2"""
         pass
 
-    def p_PRINT_STATEMENT(self, p: yacc.YaccProduction) -> None:
-        """PRINT_STATEMENT : PRINT expression."""
+    def p_NUMEXPRESSION_2(self, p: yacc.YaccProduction) -> None:
+        """NUMEXPRESSION_2 : NUMEXPRESSION_3 TERM NUMEXPRESSION_2
+        | EMPTY
+        """
         pass
 
-    def p_BREAK_STATEMENT(self, p: yacc.YaccProduction) -> None:
-        """BREAK_STATEMENT : BREAK."""
+    def p_NUMEXPRESSION_3(self, p: yacc.YaccProduction) -> None:
+        """NUMEXPRESSION_3 : PLUS
+        | MINUS
+        """
         pass
 
     def p_TERM(self, p: yacc.YaccProduction) -> None:
-        """TERM : term TIMES factor
-        | term DIVIDE factor
-        | factor.
+        """TERM : UNARYEXPRESSION TERM_2"""
+        pass
+
+    def p_TERM_2(self, p: yacc.YaccProduction) -> None:
+        """TERM_2 : MULT_OR_DIV_OR_MOD TERM
+        | EMPTY
+        """
+        pass
+
+    def p_MULT_OR_DIV_OR_MOD(self, p: yacc.YaccProduction) -> None:
+        """MULT_OR_DIV_OR_MOD : MULTIPLY
+        | DIVIDE
+        | MODULO
+        """
+        pass
+
+    def p_UNARYEXPRESSION(self, p: yacc.YaccProduction) -> None:
+        """UNARYEXPRESSION : NUMEXPRESSION_3 FACTOR
+        | FACTOR
         """
         pass
 
     def p_FACTOR(self, p: yacc.YaccProduction) -> None:
-        """FACTOR : LPAREN expression RPAREN
-        | NUMBER
-        | IDENTIFIER.
-        """
-        pass
-
-    def p_IF_STATEMENT(self, p: yacc.YaccProduction) -> None:
-        """IF_STATEMENT : IF expression THEN statement END
-        | IF expression THEN statement ELSE statement END.
+        """FACTOR : INT_CONSTANT
+        | FLOAT_CONSTANT
+        | STRING_CONSTANT
+        | NULL
+        | LVALUE
+        | LEFT_PAREN NUMEXPRESSION RIGHT_PAREN
         """
         pass
 
     def p_LVALUE(self, p: yacc.YaccProduction) -> None:
-        """LVALUE : IDENTIFIER LVALUE_2."""
+        """LVALUE : IDENT ALLOCEXPRESSION_2"""
         pass
 
-    def p_LVALUE_2(self, p: yacc.YaccProduction) -> None:
-        """LVALUE_2 : LEFT_BRACKET INT_LITERAL RIGHT_BRACKET LVALUE_2
-        | EMPTY.
-        """
+    def p_EMPTY(self, p: yacc.YaccProduction) -> None:
+        """EMPTY :"""
         pass
