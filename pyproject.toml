@@ -46,6 +46,10 @@ ignore = [
   "D300", # pydocstyle: single double quotes
   "N815", # pydocstyle: variable in mixed case
   "N802", # pydocstyle: function name in upper case
+  "D205", # pydocstyle: no blank line between summary line and description
+  "D400", # pydocstyle: first line of docstring without period
+  "D415", # pydocstyle: first line of dockstring without period, question mark, or exclamation point
+  "D401", # pydocstyle: first line of dockstring not in imperative mood
 ]
 line-length = 100
 
