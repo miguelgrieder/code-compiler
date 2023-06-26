@@ -48,13 +48,13 @@ run-lexical:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Running lexical script...$(NC)"
 	@echo "$(SEPARATOR)"
-	python bin/run_lexer.py FILE=$(FILE)
+	python bin/run_lexical.py FILE=$(FILE)
 
 run-syntax:
 	@echo "$(SEPARATOR)"
 	@echo "$(PURPLE)Running syntax script...$(NC)"
 	@echo "$(SEPARATOR)"
-	python bin/run_parser.py FILE=$(FILE)
+	python bin/run_syntax.py FILE=$(FILE)
 
 create-venv:
 	@echo "$(SEPARATOR)"
