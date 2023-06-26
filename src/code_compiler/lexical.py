@@ -77,7 +77,7 @@ class Lexical:
     def get_tokens_model(self) -> Tokens:
         return self.tokens_model
 
-    def execute(self, **kwargs: Dict[str, Any]) -> None:
+    def run(self, **kwargs: Dict[str, Any]) -> None:
         ply_lexer = lex.lex(module=self, **kwargs)
         ply_lexer.input(self.source_code)
 

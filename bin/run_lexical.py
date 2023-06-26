@@ -14,4 +14,4 @@ else:
     sys.exit(1)
 
 source_code = utils.read_file_content(file_path=provided_argv)
-lexical.Lexical(source_code).execute()
+lexical.Lexical(source_code).run()

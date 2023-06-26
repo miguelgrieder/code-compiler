@@ -16,17 +16,17 @@ class Syntax:
         specific_lexer = Lexical(self.source_code)
         self.lexical = lex.lex(module=specific_lexer)
         self.tokens = specific_lexer.tokens
-        self.precedence = (
+        self.precedence = [
             ("left", "LESS", "LESS_EQUAL", "GREATER", "GREATER_EQUAL"),
             ("left", "PLUS", "MINUS"),
             ("left", "MULTIPLY", "DIVIDE"),
             ("left", "LEFT_PAREN", "RIGHT_PAREN"),
-        )
+        ]
 
     def build(self, **kwargs: Any) -> yacc.LRParser:
         return yacc.yacc(module=self, **kwargs)
 
-    def execute(self) -> None:
+    def run(self) -> None:
         syntax = self.build()
         syntax.parse(self.source_code)
 
