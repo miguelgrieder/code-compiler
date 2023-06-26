@@ -3,6 +3,7 @@ line-length = 100
 extend-exclude = '''
     .tox
     .venv
+    parsetab.py
 '''
 
 [tool.isort]
@@ -14,7 +15,8 @@ line_length = 100
 plugins = ["pydantic.mypy"]
 exclude = [
     ".tox",
-    '.venv'
+    '.venv',
+    'parsetab.py'
 ]
 strict = true
 show_error_codes = true

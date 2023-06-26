@@ -1,6 +1,6 @@
 from typing import Any, List, Tuple
 
-from ply import lex, yacc
+from ply import lex, yacc  # type: ignore
 from pydantic import BaseModel
 
 from code_compiler.lexical import Lexical
@@ -71,7 +71,7 @@ class Syntax:
         """
         pass
 
-    def p_PARAMLIST_3(self, p):
+    def p_PARAMLIST_3(self, p: yacc.YaccProduction) -> None:
         """PARAMLIST_3 : COMMA PARAMLIST
         | EMPTY
         """
@@ -122,11 +122,11 @@ class Syntax:
         | FUNCCALL"""  # noqa
         pass
 
-    def p_FUNCCALL(self, p):
+    def p_FUNCCALL(self, p: yacc.YaccProduction) -> None:
         """FUNCCALL : IDENT FUNCCALL_2"""
         pass
 
-    def p_FUNCCALL_2(self, p):
+    def p_FUNCCALL_2(self, p: yacc.YaccProduction) -> None:
         """FUNCCALL_2 : ALLOCEXPRESSION_2 TERM_2 NUMEXPRESSION_2 EXPRESSION_2
         | LEFT_PAREN PARAMLISTCALL RIGHT_PAREN
         """
