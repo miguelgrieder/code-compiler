@@ -1,5 +1,5 @@
 from typing import Any, Dict, List
-
+import sys
 from ply import lex  # type: ignore
 from pydantic import BaseModel
 
@@ -144,4 +144,4 @@ class Lexical:
         print(  # noqa: T201
             f"Lexical Error: Unexpected character '{t.value[0]}' at line {self.line_number}"
         )
-        t.lexical.skip(1)
+        sys.exit(1)
