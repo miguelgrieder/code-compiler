@@ -88,6 +88,7 @@ class Syntax:
         | LEFT_BRACE STATELIST RIGHT_BRACE
         | BREAK SEMICOLON
         | SEMICOLON
+        | WHITESPACE
         """
         pass
 
